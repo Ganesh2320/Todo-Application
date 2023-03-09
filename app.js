@@ -7,8 +7,6 @@ app.use(express.json());
 const dbPath = path.join(__dirname, "todoApplication.db");
 let db = null;
 
-// Initializing database and server using node js
-
 const initializeDBAndServer = async () => {
   try {
     db = await open({
@@ -25,19 +23,13 @@ const initializeDBAndServer = async () => {
 };
 initializeDBAndServer();
 
-// creating status property for response
-
 const statusProperty = (requestQuery) => {
   return requestQuery.status !== undefined;
 };
 
-// creating priority property for response
-
 const priorityProperty = (requestQuery) => {
   return requestQuery.priority !== undefined;
 };
-
-// creating status and priority for response
 
 const statusAndPriorityProperty = (requestQuery) => {
   return (
@@ -51,8 +43,6 @@ app.get("/todos/", async (request, response) => {
   let data = null;
   let getTodosQuery = "";
   const { status, priority, search_q = "" } = request.query;
-
-  // using switch case
 
   switch (true) {
     case statusProperty(request.query):
@@ -96,8 +86,7 @@ app.get("/todos/", async (request, response) => {
   response.send(data);
 });
 
-// API 2  Returns a specific todo based on the todo ID using GET Method
-
+// API 2
 app.get("/todos/:todoId/", async (request, response) => {
   const { todoId } = request.params;
   const getTodoQuery = `
